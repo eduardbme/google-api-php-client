@@ -22,8 +22,6 @@ use Firebase\JWT\ExpiredException as ExpiredExceptionV3;
 use Firebase\JWT\SignatureInvalidException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use phpseclib3\Crypt\PublicKeyLoader;
-use phpseclib3\Crypt\RSA\PublicKey;
 use Psr\Cache\CacheItemPoolInterface;
 use Google\Auth\Cache\MemoryCacheItemPool;
 use Google\Exception as GoogleException;
@@ -232,7 +230,7 @@ class Verify
 
     if (class_exists('phpseclib3\Crypt\RSA\PublicKey')) {
       /** @var PublicKey $loader */
-      $loader = PublicKeyLoader::load($component);
+      $loader = phpseclib3\Crypt\PublicKeyLoader::load($component);
 
       return $loader->toString('PKCS8');
     }
